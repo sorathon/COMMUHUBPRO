@@ -1,106 +1,134 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    backgroundColor: 'white',
-  },
-  textSign: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  smallIcon: {
-    marginRight: 10,
-    fontSize: 24,
-  },
-  logoContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logo: {
-    height: 260,
-    width: 260,
-    marginTop: 30,
-  },
-  text_footer: {
-    color: '#05375a',
-    fontSize: 18,
-  },
-  action: {
+  
+
+  inputContainer: {
     flexDirection: 'row',
-    paddingTop: 14,
-    paddingBottom: 15,
-    marginTop: 15,
-
-    paddingHorizontal: 15,
-
+    alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#420475',
-    borderRadius: 20,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginVertical: 10,
+    width: '100%',
+    position: 'relative',
+    
   },
-  textInput: {
+  container: {
     flex: 1,
-    marginTop: -5,
-
-    color: '#05375a',
-  },
-  loginContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingHorizontal: 20,
-    paddingVertical: 30,
+    backgroundColor: '#f5f5f5',
+    padding: 20,
   },
-  header: {
-    justifyContent: 'flex-end',
-    paddingHorizontal: 20,
-  },
-  text_header: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#420475',
+  title: {
+    fontSize: 36,
     fontWeight: 'bold',
-    fontSize: 30,
+    color: '#4A90E2',
+    marginBottom: 40,
+  },
+  input: {
+    flex: 1,
+    paddingVertical: 12,
+    fontSize: 16,
+    paddingRight: 40,
+    borderRadius: 15,
   },
   button: {
     alignItems: 'center',
-    marginTop: -20,
-    alignItems: 'center',
-    textAlign: 'center',
-    margin: 20,
+      marginTop: -20,
+      alignItems: 'center',
+      textAlign: 'center',
+      margin: 20,
   },
-  inBut: {
-    width: '70%',
-    backgroundColor: '#420475',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 50,
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
-  inBut2: {
-    backgroundColor: '#420475',
-    height: 65,
-    width: 65,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+  forgotPassword: {
+    alignSelf: 'flex-end',
+    marginTop: 10,
   },
-  bottomButton: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  forgotText: {
+    color: '#4A90E2',
   },
-  smallIcon2: {
-    fontSize: 40,
-    // marginRight: 10,
+  registerText: {
+    marginTop: 20,
+    fontSize: 14,
   },
-  bottomText: {
-    color: 'black',
-    fontSize: 12,
-    fontWeight: '600',
-    marginTop: 5,
+  registerLink: {
+    color: '#4A90E2',
+    fontWeight: 'bold',
   },
+  icon: {
+    marginLeft: 10,
+  },
+  action: {
+      flexDirection: 'row',
+      paddingTop: 14,
+      paddingBottom: 15,
+      marginTop: 15,
+  
+      paddingHorizontal: 15,
+  
+      borderWidth: 1,
+      borderColor: '#420475',
+      borderRadius: 20,
+    },
+    inBut: {
+        width: '70%',
+        backgroundColor: '#3d75c4',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        borderRadius: 15,
+      },
+      textInput: {
+          flex: 2,
+          marginTop: -5,
+      
+          color: '#05375a',
+    },
+    iconContainer: {
+      position: 'absolute',
+      right: 10, // ให้ไอคอนอยู่ขวาสุดของ input
+    },
+    loginContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        paddingHorizontal: 20,
+        paddingVertical: 150,
+        paddingBottom: 30,
+      },
+      textSign: {
+          fontSize: 18,
+          fontWeight: 'bold',
+          color: 'white',
+      },
+      radioButton_div: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+      radioButton_inner_div: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      radioButton_title: {
+        fontSize: 20,
+        color: '#420475',
+      },
+      radioButton_text: {
+        fontSize: 16,
+        color: 'black',
+      },
 });
 export default styles;

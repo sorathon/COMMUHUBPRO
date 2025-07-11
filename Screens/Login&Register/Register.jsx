@@ -17,8 +17,6 @@ import {useEffect, useState} from 'react';
 import {RadioButton} from 'react-native-paper';
 import axios from 'axios';
 
-
-
 function RegisterPage({props}) {
   const [name, setName] = useState('');
   const [nameVerify, setNameVerify] = useState(false);
@@ -40,28 +38,28 @@ function RegisterPage({props}) {
       email,
       mobile,
       password,
+      userType
     };
-    if(nameVerify && emailVerify && mobileVerify && passwordVerify) {
+    //if (nameVerify && emailVerify && mobileVerify && passwordVerify) {
+      if(userType=='Admin'&& secretText != 'Text1243'){
+        return Alert.alert('Invalid Admmin');
+      }
       axios
-      .post('http://192.168.11.52:5001/register', userData)
-      .then(res => {console.log(res.data)
-        if(res.data.status == 'ok'){
-          Alert.alert('Registration Successful')
-          navigation.navigate('Login')
-        }
-        else{z
-          Alert.alert('Registration Failed')
-        }
-
-
-      })
-      .catch(e => console.log(e));
-    }
-    else{
-      Alert.alert('Please fill all the fields properly');
-
-    }
-   
+        .post('http://192.168.8.103:5001/register', userData)
+        .then(res => {
+          console.log(res.data);
+          if (res.data.status == 'ok') {
+            Alert.alert('Registration Successful');
+            navigation.navigate('Login');
+          } else {
+            
+            Alert.alert('Registration Failed');
+          }
+        })
+        .catch(e => console.log(e));
+   // } else {
+   ///   Alert.alert('Please fill all the fields properly');
+   // }
   }
 
   function handleName(e) {
@@ -86,7 +84,7 @@ function RegisterPage({props}) {
     const mobileVar = e.nativeEvent.text;
     setMobile(mobileVar);
     setMobileVerify(false);
-    if (/[6-9]{1}[0-9]{9}/.test(mobileVar)) {
+    if (/^\d{10}$/.test(mobileVar)) {
       setMobile(mobileVar);
       setMobileVerify(true);
     }
@@ -108,15 +106,32 @@ function RegisterPage({props}) {
       style={{backgroundColor: 'white'}}>
       <View>
         <View style={styles.loginContainer}>
-          <Text style={styles.text_header}>Register!!!</Text>
+          <Text style={styles.title}>Commuhub</Text>
+
+         
+          <View style={styles.radioButton_div}>
+            <Text style={styles.radioButton_title}> Login as</Text>
+            <View style={styles.radioButton_inner_div}>
+              <Text style={styles.radioButton_text}>User</Text>
+              <RadioButton
+                value="User"
+                status={userType == 'User' ? 'checked' : 'unchecked'}
+                onPress={() => setUserType('User')}
+              />
+            </View>
+            <View style={styles.radioButton_inner_div}>
+              <Text style={styles.radioButton_text}>Admin</Text>
+              <RadioButton
+                value="Admin"
+                status={userType == 'Admin' ? 'checked' : 'unchecked'}
+                onPress={() => setUserType('Admin')}
+              />
+            </View>
+          </View>
 
           {userType == 'Admin' ? (
             <View style={styles.action}>
-              <FontAwesome
-                name="user-o"
-                color="#420475"
-                style={styles.smallIcon}
-              />
+              <FontAwesome name="user-o" color="#420475" style={styles.icon} />
               <TextInput
                 placeholder="Secret Text"
                 style={styles.textInput}
@@ -127,16 +142,17 @@ function RegisterPage({props}) {
             ''
           )}
 
-          <View style={styles.action}>
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Name"
+              style={styles.input}
+              onChange={e => handleName(e)}
+            />
             <FontAwesome
               name="user-o"
               color="#420475"
-              style={styles.smallIcon}
-            />
-            <TextInput
-              placeholder="Name"
-              style={styles.textInput}
-              onChange={e => handleName(e)}
+              size={20}
+              style={{paddingRight: 10, marginTop: -7, marginLeft: 5}}
             />
             {name.length < 1 ? null : nameVerify ? (
               <Feather name="check-circle" color="green" size={20} />
@@ -153,17 +169,17 @@ function RegisterPage({props}) {
               Name sholud be more then 1 characters.
             </Text>
           )}
-          <View style={styles.action}>
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Email"
+              style={styles.input}
+              onChange={e => handleEmail(e)}
+            />
             <Fontisto
               name="email"
               color="#420475"
               size={24}
               style={{marginLeft: 0, paddingRight: 5}}
-            />
-            <TextInput
-              placeholder="Email"
-              style={styles.textInput}
-              onChange={e => handleEmail(e)}
             />
             {email.length < 1 ? null : emailVerify ? (
               <Feather name="check-circle" color="green" size={20} />
@@ -180,18 +196,18 @@ function RegisterPage({props}) {
               Enter Proper Email Address
             </Text>
           )}
-          <View style={styles.action}>
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Mobile"
+              style={styles.input}
+              onChange={e => handleMobile(e)}
+              maxLength={10}
+            />
             <FontAwesome
               name="mobile"
               color="#420475"
               size={35}
               style={{paddingRight: 10, marginTop: -7, marginLeft: 5}}
-            />
-            <TextInput
-              placeholder="Mobile"
-              style={styles.textInput}
-              onChange={e => handleMobile(e)}
-              maxLength={10}
             />
             {mobile.length < 1 ? null : mobileVerify ? (
               <Feather name="check-circle" color="green" size={20} />
@@ -205,44 +221,34 @@ function RegisterPage({props}) {
                 marginLeft: 20,
                 color: 'red',
               }}>
-              Phone number with 6-9 and remaing 9 digit with 0-9
+              Phone number with 0-9
             </Text>
           )}
-          <View style={styles.action}>
-            <FontAwesome name="lock" color="#420475" style={styles.smallIcon} />
+          <View style={styles.inputContainer}>
             <TextInput
               placeholder="Password"
-              style={styles.textInput}
+              style={styles.input}
               onChange={e => handlePassword(e)}
-              secureTextEntry={showPassword}
+              secureTextEntry={!showPassword}
             />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              {password.length < 1 ? null : !showPassword ? (
-                <Feather
-                  name="eye-off"
-                  style={{marginRight: -10}}
-                  color={passwordVerify ? 'green' : 'red'}
-                  size={23}
-                />
-              ) : (
-                <Feather
-                  name="eye"
-                  style={{marginRight: -10}}
-                  color={passwordVerify ? 'green' : 'red'}
-                  size={23}
-                />
-              )}
+            <TouchableOpacity
+              onPress={() => setShowPassword(!showPassword)}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginRight: 8,
+              }}>
+              <Feather
+                name={showPassword ? 'eye' : 'eye-off'}
+                size={20}
+                color="gray"
+                style={styles.icon}
+              />
             </TouchableOpacity>
           </View>
-          {password.length < 1 ? null : passwordVerify ? null : (
-            <Text
-              style={{
-                marginLeft: 20,
-                color: 'red',
-              }}>
-              Uppercase, Lowercase, Number and 6 or more characters.
-            </Text>
-          )}
+          <View style={styles.inputContainer}>
+            <TextInput placeholder="Invate code" style={styles.input} />
+          </View>
         </View>
         <View style={styles.button}>
           <TouchableOpacity style={styles.inBut} onPress={() => handelSubmit()}>
